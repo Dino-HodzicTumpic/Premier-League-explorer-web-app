@@ -1,0 +1,27 @@
+# ========== BACKEND ==========
+/backend/plExplorer/target/
+/backend/plExplorer/.idea/
+/backend/plExplorer/.mvn/
+/backend/plExplorer/.gradle/
+/backend/plExplorer/out/
+
+# Maven / IntelliJ
+*.iml
+*.class
+
+# ========== FRONTEND ==========
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.idea/
+/frontend/.vite/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Environment files
+*.env
+*.env.local
+*.env.development
+*.env.production
