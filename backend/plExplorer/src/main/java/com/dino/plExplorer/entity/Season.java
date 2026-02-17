@@ -23,6 +23,7 @@ public class Season {
     private Long externalId;
 
     // format 2021/2022
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(name = "start_date")
@@ -32,7 +33,7 @@ public class Season {
     private LocalDate endDate;
 
     @Column(name = "is_current")
-    private Boolean isCurrent = false;
+    private boolean isCurrent = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner_team_id")

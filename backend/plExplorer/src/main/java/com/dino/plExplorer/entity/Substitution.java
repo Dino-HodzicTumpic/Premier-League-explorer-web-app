@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "substitution")
+@Table(name = "substitutions")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @Builder
 public class Substitution {
     @Id
@@ -28,5 +28,8 @@ public class Substitution {
     private Team team;
 
     private Integer minute;
+
+    @Column(name = "injury_time")
+    private Integer injuryTime; // Za zamjene u nadoknadi (npr. 90+2)
 
 }

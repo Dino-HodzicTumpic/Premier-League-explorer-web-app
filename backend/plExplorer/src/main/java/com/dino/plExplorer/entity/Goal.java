@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.enums.GoalType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,5 +33,7 @@ public class Goal {
     @Column(name = "injury_time")
     private Integer injuryTime; // npr. 90 + 3
 
-    private String type; // REGULAR, PENALTY, OWN_GOAL
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private GoalType type; // REGULAR, PENALTY, OWN_GOAL, FREE_KICK
 }

@@ -23,9 +23,10 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "external_Id")
+    @Column(name = "external_Id", nullable = false, unique = true)
     private Long externalId;
 
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
     @Column(name = "short_name")
@@ -42,6 +43,7 @@ public class Team {
     @Column(name = "club_colors")
     private String clubColors;
 
+    @Column(length = 3, unique = true)
     private String tla;
 
     @CreatedDate

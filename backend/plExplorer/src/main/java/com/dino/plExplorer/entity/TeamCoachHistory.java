@@ -25,7 +25,7 @@ public class TeamCoachHistory {
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    @Column(nullable = false)
+    @Column(name = "joined_at" , nullable = false)
     private LocalDate joinedAt;
 
     private LocalDate leftAt; // Nullable - ako je null, znači da je CURRENT coach

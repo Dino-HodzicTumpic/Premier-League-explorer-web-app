@@ -25,6 +25,7 @@ public class MatchReferee {
     private Referee referee;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RefereeRole role;
 
 }

@@ -16,19 +16,24 @@ public class MatchAppearance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "match_id")
+    @JoinColumn(name = "match_id", nullable = false)
     private Match match;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", nullable = false)
     private Player player;
 
+    @Column(name = "shirt_number" , nullable = false)
     private Integer shirtNumber;
+
+    @Column(nullable = false)
     private String position;
+
+    @Column(name = "is_starting", nullable = false)
     private boolean isStarting;
 
 

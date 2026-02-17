@@ -16,44 +16,44 @@ public class MatchStatistic {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "match_id")
+    @JoinColumn(name = "match_id", nullable = false)
     private Match match;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
     @Column(name = "corner_kicks")
-    private Integer cornerKicks;
+    private Integer cornerKicks = 0;
 
     @Column(name = "goal_kicks")
-    private Integer goalKicks;
-    private Integer offsides;
-    private Integer fouls;
+    private Integer goalKicks = 0;
+    private Integer offsides = 0;
+    private Integer fouls = 0;
 
     @Column(name = "ball_possession")
-    private Integer ballPossession;
+    private Integer ballPossession = 0;
 
-    private Integer saves;
+    private Integer saves = 0;
 
     @Column(name = "throw_ins")
-    private Integer throwIns;
+    private Integer throwIns = 0;
 
-    private Integer shots;
+    private Integer shots = 0;
     @Column(name = "shots_on_goal")
-    private Integer shotsOnGoal;
+    private Integer shotsOnGoal = 0;
 
     @Column(name = "shots_off_goal")
-    private Integer shotsOffGoal;
+    private Integer shotsOffGoal = 0;
 
     @Column(name = "yellow_cards")
-    private Integer yellowCards;
+    private Integer yellowCards = 0;
 
     @Column(name = "red_cards")
-    private Integer redCards;
+    private Integer redCards = 0;
 
     @Column(name = "total_bookings")
-    private Integer totalBookings;
+    private Integer totalBookings = 0;
 
 
 

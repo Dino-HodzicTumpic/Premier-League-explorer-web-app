@@ -23,15 +23,17 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "external_id")
+    @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
 
-    @Column(name = "utc_date")
+    @Column(name = "utc_date", nullable = false)
     private LocalDateTime utcDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private MatchStatus status;
 
+    @Column(nullable = false)
     private Integer matchday;
 
     private Double homeWinOdds;

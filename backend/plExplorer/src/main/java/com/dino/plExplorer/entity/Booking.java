@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.enums.CardType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,10 +24,11 @@ public class Booking {
     @JoinColumn(name = "match_id", nullable = false)
     private Match match;
 
-
+    @Column(nullable = false)
     private Integer minute;
 
-    @Column(name = "card_type")
-    private String card; // Yellow, Red
+    @Enumerated(EnumType.STRING)
+    @Column(name = "card_type", nullable = false, length = 20)
+    private CardType card; // Yellow, Red
 
 }

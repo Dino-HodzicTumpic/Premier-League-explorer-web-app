@@ -2,16 +2,21 @@ package com.dino.plExplorer.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_favorite_teams")
+@Table(name = "user_favorite_teams", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_user_team_favorite", columnNames = {"user_id", "team_id"})
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class UserFavoriteTeam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +30,7 @@ public class UserFavoriteTeam {
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
+    @CreatedDate
+    @Column(name = "favorited_at", nullable = false, updatable = false)
+    private LocalDateTime favoritedAt;
 }

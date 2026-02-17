@@ -22,9 +22,10 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "external_id")
+    @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(name = "first_name")

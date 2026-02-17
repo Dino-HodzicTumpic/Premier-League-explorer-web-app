@@ -2,6 +2,9 @@ package com.dino.plExplorer.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -10,6 +13,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +30,8 @@ public class User {
     @Column(name = "google_id", unique = true)
     private String googleId;
 
-
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
 
 
