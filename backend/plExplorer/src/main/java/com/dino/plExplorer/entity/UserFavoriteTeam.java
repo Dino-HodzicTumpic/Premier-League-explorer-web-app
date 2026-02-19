@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,10 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class UserFavoriteTeam {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserFavoriteTeam extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

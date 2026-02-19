@@ -1,6 +1,7 @@
 package com.dino.plExplorer.entity;
 
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import com.dino.plExplorer.entity.enums.MatchStatus;
 import com.dino.plExplorer.entity.enums.MatchWinner;
 import jakarta.persistence.*;
@@ -16,12 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Matches")
-public class Match {
+@Table(name = "matches")
+public class Match extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
 
     @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;

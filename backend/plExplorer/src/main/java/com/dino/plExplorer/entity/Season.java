@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "seasons")
-public class Season {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private  Long id;
+public class Season extends BaseEntity {
+
 
     @Column(name = "external_id")
     private Long externalId;

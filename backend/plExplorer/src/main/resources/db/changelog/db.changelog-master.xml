@@ -6,5 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="/db/changelog/changes/001-init-schema.xml"/>
-
+    <include file="/db/changelog/changes/002-add-market-value-to-team-and-player.xml"/>
 </databaseChangeLog>

@@ -1,15 +1,14 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "substitutions")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @Builder
-public class Substitution {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Substitution extends BaseEntity {
+
 
     @ManyToOne( fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "match_id", nullable = false)

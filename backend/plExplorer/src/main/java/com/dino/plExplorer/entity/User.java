@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,10 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String email;

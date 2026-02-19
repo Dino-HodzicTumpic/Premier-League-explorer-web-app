@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import com.dino.plExplorer.entity.enums.CardType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,10 +8,8 @@ import lombok.*;
 @Entity
 @Table(name = "bookings")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @Builder
-public class Booking {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
+public class Booking extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false)

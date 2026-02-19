@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,10 +11,8 @@ import lombok.*;
 @Setter
 @Builder
 @Table(name = "match_statistics")
-public class MatchStatistic {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MatchStatistic extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id", nullable = false)

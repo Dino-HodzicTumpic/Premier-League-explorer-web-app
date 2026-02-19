@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import com.dino.plExplorer.entity.enums.GoalType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,10 +8,8 @@ import lombok.*;
 @Entity
 @Table(name = "goals")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @Builder
-public class Goal {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Goal extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id", nullable = false)

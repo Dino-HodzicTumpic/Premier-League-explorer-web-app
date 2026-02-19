@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,10 +13,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class TeamCoachHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TeamCoachHistory extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "coach_id", nullable = false)

@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import com.dino.plExplorer.entity.enums.RefereeRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,10 +12,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class MatchReferee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MatchReferee extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "match_id", nullable = false)

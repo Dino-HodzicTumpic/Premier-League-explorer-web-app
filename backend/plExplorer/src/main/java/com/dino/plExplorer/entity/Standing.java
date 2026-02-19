@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,11 +12,8 @@ import lombok.*;
 @Builder
 @Table(name = "standings", uniqueConstraints = {
         @UniqueConstraint(name = "uk_team_season_standing", columnNames = {"team_id", "season_id"})})
-public class Standing {
+public class Standing extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private  Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "team_id", nullable = false)

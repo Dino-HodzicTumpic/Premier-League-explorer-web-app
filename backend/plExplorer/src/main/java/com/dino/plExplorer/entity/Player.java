@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,10 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "players")
-public class Player {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Player extends BaseEntity {
+
 
     @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
@@ -47,6 +46,12 @@ public class Player {
 
     @Column(name = "contract_start")
     private LocalDate contractStart;
+
+    @Column(name = "market_value")
+    private Long marketValue;
+
+    @Column( length = 50)
+    private String position;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

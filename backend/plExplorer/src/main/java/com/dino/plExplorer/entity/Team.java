@@ -1,5 +1,6 @@
 package com.dino.plExplorer.entity;
 
+import com.dino.plExplorer.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,10 +19,8 @@ import java.util.List;
 @Setter
 @Builder
 @Table(name = "teams")
-public class Team {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Team extends BaseEntity {
+
 
     @Column(name = "external_Id", nullable = false, unique = true)
     private Long externalId;
@@ -33,6 +32,9 @@ public class Team {
     private String shortName;
 
     private String stadium;
+
+    @Column(name = "market_value")
+    private Long marketValue;
 
     @Column(name = "crest_url")
     private String crestUrl;
