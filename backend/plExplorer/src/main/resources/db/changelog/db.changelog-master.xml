@@ -7,4 +7,5 @@
 
     <include file="/db/changelog/changes/001-init-schema.xml"/>
     <include file="/db/changelog/changes/002-add-market-value-to-team-and-player.xml"/>
+    <include file="/db/changelog/changes/003-add-date-of-birth-to-coach.xml"/>
 </databaseChangeLog>

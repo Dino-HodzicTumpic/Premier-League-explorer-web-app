@@ -22,12 +22,5 @@ public class ContractExternalData {
     @JsonFormat(pattern = "yyyy-MM")
     private YearMonth until;
 
-    // Helper methods za konverziju u LocalDate
-    public LocalDate getStartDate() {
-        return start != null ? start.atDay(1) : null;
-    }
 
-    public LocalDate getUntilDate() {
-        return until != null ? until.atEndOfMonth() : null;
-    }
 }

@@ -32,4 +32,7 @@ public class Coach extends BaseEntity {
     @Column(name = "contract_until")
     private LocalDate contractUntil;
 
+    @Column(name = "birth_date")
+    private LocalDate dateOfBirth;
+
 }
