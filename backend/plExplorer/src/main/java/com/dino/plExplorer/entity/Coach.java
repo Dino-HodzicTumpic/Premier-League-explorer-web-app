@@ -1,6 +1,7 @@
 package com.dino.plExplorer.entity;
 
 import com.dino.plExplorer.entity.base.BaseEntity;
+import com.dino.plExplorer.entity.interfaces.HasImage;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class Coach extends BaseEntity {
+public class Coach extends BaseEntity implements HasImage {
 
     @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
@@ -34,5 +35,11 @@ public class Coach extends BaseEntity {
 
     @Column(name = "birth_date")
     private LocalDate dateOfBirth;
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
+    @Column(name = "image_public_id", length = 255)
+    private String imagePublicId;
 
 }

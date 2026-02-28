@@ -11,7 +11,8 @@ import org.mapstruct.Mapping;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(config = MapStructConfig.class)
+@Mapper(config = MapStructConfig.class,
+uses = {CoachExternalMapper.class, SquadMemberExternalMapper.class} )
 public interface TeamExternalMapper {
     @Mapping(source = "id", target ="externalId" )
     @Mapping(source = "crest", target = "crestUrl")

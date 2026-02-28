@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="004-add-image-url-to-player" author="dino">
+        <addColumn tableName="players">
+            <column name="image_url" type="VARCHAR(500)" remarks="URL slike igrača na Cloudinary servisu"/>
+        </addColumn>
+        <addColumn tableName="coaches">
+            <column name="image_url" type="VARCHAR(500)" remarks="URL slike trenera na Cloudinary servisu"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
+

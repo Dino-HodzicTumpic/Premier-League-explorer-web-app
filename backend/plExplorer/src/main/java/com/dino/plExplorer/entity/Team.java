@@ -56,11 +56,11 @@ public class Team extends BaseEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "current_coach_id")
     private Coach currentCoach;
 
-    @OneToMany(mappedBy = "currentTeam")
+    @OneToMany(mappedBy = "currentTeam",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     List<Player> currentPlayers = new ArrayList<>();
 
 }

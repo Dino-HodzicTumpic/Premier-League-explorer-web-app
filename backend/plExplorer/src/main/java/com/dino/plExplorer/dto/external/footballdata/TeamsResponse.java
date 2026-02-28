@@ -6,20 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CoachExternalData {
-
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String name;
-    private LocalDate dateOfBirth;
-    private String nationality;
-    private ContractExternalData contract;
+public class TeamsResponse {
+    private List<TeamExternalResponse> teams;
 }
