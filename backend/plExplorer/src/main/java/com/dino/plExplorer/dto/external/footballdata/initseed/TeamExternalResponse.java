@@ -1,12 +1,10 @@
-package com.dino.plExplorer.dto.external.footballdata;
+package com.dino.plExplorer.dto.external.footballdata.initseed;
 
-import com.dino.plExplorer.config.mapper.MapStructConfig;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.mapstruct.Mapper;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.dino.plExplorer.service;
 
-import com.dino.plExplorer.dto.external.footballdata.SquadMemberExternalData;
-import com.dino.plExplorer.dto.external.footballdata.TeamExternalResponse;
+import com.dino.plExplorer.dto.external.footballdata.initseed.TeamExternalResponse;
 import com.dino.plExplorer.entity.Team;
 import com.dino.plExplorer.mapper.SquadMemberExternalMapper;
 import com.dino.plExplorer.mapper.TeamExternalMapper;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -47,34 +45,34 @@ public class TeamDataProcessingService {
 
     }
 
-    private TeamExternalResponse enrichTeamWithPlayerDetails(TeamExternalResponse team) {
-        if(team.getSquad() == null){
-            return team;
-        }
-
-        List<SquadMemberExternalData> enrichedSquad =  team.getSquad().stream()
-                .map(this::enrichPlayerData)
-                .toList();
-
-        team.setSquad(enrichedSquad);
-        return team;
-    }
-
-    private SquadMemberExternalData enrichPlayerData(SquadMemberExternalData squadMember){
-
-        SquadMemberExternalData playerDetails = footballDataApiService.fetchPlayerDetails(squadMember.getId());
-
-        if(playerDetails != null && playerDetails.getShirtNumber() != null){
-                squadMember.setShirtNumber(playerDetails.getShirtNumber());
-        }
-        // sleep/pauza 7 sekundi da ne predjemo api limit
-        try {
-            Thread.sleep(7000); // 7 sekundi
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while sleeping between API calls", e);
-        }
-
-        return squadMember;
-    }
+//    private TeamExternalResponse enrichTeamWithPlayerDetails(TeamExternalResponse team) {
+//        if(team.getSquad() == null){
+//            return team;
+//        }
+//
+//        List<SquadMemberExternalData> enrichedSquad =  team.getSquad().stream()
+//                .map(this::enrichPlayerData)
+//                .toList();
+//
+//        team.setSquad(enrichedSquad);
+//        return team;
+//    }
+//
+//    private SquadMemberExternalData enrichPlayerData(SquadMemberExternalData squadMember){
+//
+//        SquadMemberExternalData playerDetails = footballDataApiService.fetchPlayerDetails(squadMember.getId());
+//
+//        if(playerDetails != null && playerDetails.getShirtNumber() != null){
+//                squadMember.setShirtNumber(playerDetails.getShirtNumber());
+//        }
+//        // sleep/pauza 7 sekundi da ne predjemo api limit
+//        try {
+//            Thread.sleep(7000); // 7 sekundi
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//            log.error("Thread interrupted while sleeping between API calls", e);
+//        }
+//
+//        return squadMember;
+//    }
 }

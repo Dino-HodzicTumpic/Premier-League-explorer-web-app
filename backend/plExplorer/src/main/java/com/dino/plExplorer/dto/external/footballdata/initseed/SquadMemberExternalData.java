@@ -1,4 +1,4 @@
-package com.dino.plExplorer.dto.external.footballdata;
+package com.dino.plExplorer.dto.external.footballdata.initseed;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

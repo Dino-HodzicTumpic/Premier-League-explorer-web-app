@@ -1,7 +1,7 @@
 package com.dino.plExplorer.mapper;
 
 import com.dino.plExplorer.config.mapper.MapStructConfig;
-import com.dino.plExplorer.dto.external.footballdata.SquadMemberExternalData;
+import com.dino.plExplorer.dto.external.footballdata.initseed.SquadMemberExternalData;
 import com.dino.plExplorer.entity.Player;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

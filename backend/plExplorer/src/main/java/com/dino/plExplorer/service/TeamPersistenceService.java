@@ -35,7 +35,7 @@ public class TeamPersistenceService {
            Coach currentCoach = team.getCurrentCoach();
            if(currentCoach != null){
                currentCoach.setCurrentTeam(team);
-               uploadImage(currentCoach, "coaches");
+               //uploadImage(currentCoach, "coaches");
            }
             //players
             List<Player> currentPlayers = team.getCurrentPlayers();
@@ -51,27 +51,4 @@ public class TeamPersistenceService {
        return savedTeams;
    }
 
-
-
-   private <T extends HasImage> void uploadImage(T entity, String folder){
-       Optional<String> imageUrl = sportsDbApiService.fetchImage(entity.getName());
-
-       // sleep/pauza 4 sekund da ne predjemo api limit
-       try {
-           Thread.sleep(4000); // 4 sekunde
-       } catch (InterruptedException e) {
-           Thread.currentThread().interrupt();
-           log.error("Thread interrupted while sleeping between API calls", e);
-       }
-
-       if(imageUrl.isEmpty()) return;
-
-       Optional<ImageUploadResult> result = imageService.uploadImage(imageUrl.get(), folder);
-
-       if (result.isEmpty()) return;
-
-       entity.setImagePublicId(result.get().publicId());
-       entity.setImageUrl(result.get().secureUrl());
-
-   }
 }
