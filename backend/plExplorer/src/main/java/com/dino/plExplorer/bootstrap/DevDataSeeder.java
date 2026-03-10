@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("dev") // samo u dev okruženju
+@Profile("seed") // samo u dev okruženju
 @RequiredArgsConstructor
 @Slf4j
 public class DevDataSeeder {
@@ -27,7 +27,7 @@ public class DevDataSeeder {
         try {
            // teamSyncService.syncPremierLeagueTeams();
             //playerImageSyncService.updateAllPlayerImages();
-            playerInfoSyncService.updatePlayersInfo();
+            //playerInfoSyncService.updatePlayersInfo();
             log.info("Seeding dev data: Premier League teams sync completed.");
         } catch (Exception e) {
             log.error("Error during dev data seeding", e);

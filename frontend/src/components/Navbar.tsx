@@ -37,6 +37,8 @@ import {
   Shield,
   CalendarDays,
   Star,
+  Columns,
+  List,
 } from "lucide-react";
 
 // Nav Links
@@ -46,6 +48,7 @@ const NAV_LINKS = [
   { label: "Players", href: "/players", icon: User },
   { label: "Matches", href: "/matches", icon: CalendarDays },
   { label: "Top scorers", href: "/top-scorers", icon: Star },
+  { label: "Standings", href: "/standings", icon: List },
 ] as const;
 
 // Mock user state — replace with actual auth logic

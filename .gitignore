@@ -21,9 +21,7 @@
 /frontend/dist-ssr/
 /frontend/.idea/
 /frontend/.vite/
-frontend/components.json  # generirani config
-frontend/src/assets/images/*  # privremene generirane slike
-!frontend/src/assets/images/keep/  # ako imaš slike koje želiš u repo
+
 
 # Node/Yarn/PNPM logs
 npm-debug.log*
@@ -42,3 +40,8 @@ Thumbs.db
 *.env.local
 *.env.development
 *.env.production
+!.env.example
+
+# Spring environment configs
+application-dev.properties
+application-prod.properties
