@@ -82,16 +82,20 @@ public class FootballDataApiService {
     }
 
     public Optional<StandingsResponse> fetchStandings(){
+       return fetchStandings(2025);
+    }
+
+    public Optional<StandingsResponse> fetchStandings(Integer season){
         log.info("Fetching standings from Football-data.org API");
         try{
             StandingsResponse response = footballDataWebClient
-                                        .get()
-                                        .uri("/competitions/PL/standings")
-                                        .retrieve()
-                                        .bodyToMono(StandingsResponse.class)
-                                        .block();
+                    .get()
+                    .uri("/competitions/PL/standings?season=" + season)
+                    .retrieve()
+                    .bodyToMono(StandingsResponse.class)
+                    .block();
 
-          return  Optional.ofNullable(response);
+            return  Optional.ofNullable(response);
 
         } catch (Exception e){
             log.error("Error while fetching standings from Football-data.org API", e);

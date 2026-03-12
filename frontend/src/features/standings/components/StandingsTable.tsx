@@ -1,4 +1,4 @@
-import { useStandings } from "../hooks/useStandings";
+import type { TeamStanding } from "../types/standings";
 import { SkeletonTable } from "./SkeletonTable";
 import {
   Table,
@@ -15,6 +15,9 @@ type StandingsTableProps = {
   limit: number;
   isMini: boolean;
   showExtendedStats: boolean;
+  standings?: TeamStanding[];
+  isLoading?: boolean;
+  isError?: boolean;
 };
 
 const tableHeadersExtended = [
@@ -34,9 +37,10 @@ export default function StandingsTable({
   limit,
   isMini,
   showExtendedStats,
+  standings,
+  isLoading,
+  isError,
 }: StandingsTableProps) {
-  const { data: standings, isLoading, isError } = useStandings();
-
   if (isLoading) {
     return <SkeletonTable rows={limit} />;
   }
