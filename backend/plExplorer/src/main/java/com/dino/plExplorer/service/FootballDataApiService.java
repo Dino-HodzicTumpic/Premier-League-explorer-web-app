@@ -4,6 +4,7 @@ import com.dino.plExplorer.dto.external.footballdata.initseed.PlayerExternalData
 import com.dino.plExplorer.dto.external.footballdata.initseed.TeamExternalResponse;
 import com.dino.plExplorer.dto.external.footballdata.initseed.TeamsResponse;
 import com.dino.plExplorer.dto.external.footballdata.standings.StandingsResponse;
+import com.dino.plExplorer.dto.external.footballdata.topScorers.TopScorersResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -102,4 +103,25 @@ public class FootballDataApiService {
             return Optional.empty();
         }
     }
+
+    public Optional<TopScorersResponse> fetchTopScorers(String season, Integer limit){
+        log.info("Fetching top scorers from Football-data.org API");
+        try{
+            TopScorersResponse response = footballDataWebClient
+                    .get()
+                    .uri("/competitions/PL/scorers?season=" + season + "&limit=" + limit)
+                    .retrieve()
+                    .bodyToMono(TopScorersResponse.class)
+                    .block();
+
+            return Optional.ofNullable(response);
+
+        } catch(Exception e){
+            log.error("Error while fetching top scorers from Football-data.org API", e);
+            return Optional.empty();
+        }
+
+    }
+
+
 }

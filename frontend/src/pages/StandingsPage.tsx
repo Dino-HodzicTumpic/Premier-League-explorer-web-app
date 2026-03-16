@@ -27,7 +27,7 @@ export default function StandingsPage() {
   return (
     <div className="space-y-6">
       <Select value={selectedSeason} onValueChange={setSelectedSeason}>
-        <SelectTrigger>
+        <SelectTrigger className="bg-white">
           <SelectValue placeholder="Select a season" />
         </SelectTrigger>
         <SelectContent>
