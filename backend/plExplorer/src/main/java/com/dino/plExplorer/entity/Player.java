@@ -25,6 +25,9 @@ public class Player extends BaseEntity implements HasImage {
     @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
 
+    @Column(name = "espn_id", length = 40)
+    private String espnId;
+
     @Column(nullable = false)
     private String name;
 

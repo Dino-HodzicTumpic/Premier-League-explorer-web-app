@@ -10,5 +10,8 @@
     <include file="/db/changelog/changes/003-add-date-of-birth-to-coach.xml"/>
     <include file="/db/changelog/changes/004-add-image-url-to-player_and_coach.xml"/>
     <include file="/db/changelog/changes/005-add-image-public-id-to-player_and_coach.xml"/>
+    <include file="/db/changelog/changes/006-add-espn-id-to-team.xml"/>
+    <include file="/db/changelog/changes/007-change-team-espn-id-to-varchar20.xml"/>
+    <include file="/db/changelog/changes/008-add-espn-id-to-player.xml"/>
 
 </databaseChangeLog>

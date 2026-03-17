@@ -3,6 +3,7 @@ package com.dino.plExplorer.bootstrap;
 import com.dino.plExplorer.service.PlayerImageSyncService;
 import com.dino.plExplorer.service.PlayerInfoSyncService;
 import com.dino.plExplorer.service.TeamSyncService;
+import com.dino.plExplorer.service.espn.EspnPlayerService;
 import com.dino.plExplorer.service.standings.StandingsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class DevDataSeeder {
     private final PlayerImageSyncService  playerImageSyncService;
     private final PlayerInfoSyncService playerInfoSyncService;
     private final StandingsService standingsService;
+    private final EspnPlayerService espnPlayerService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void seedDevData() {
@@ -30,7 +32,9 @@ public class DevDataSeeder {
            // teamSyncService.syncPremierLeagueTeams();
             //playerImageSyncService.updateAllPlayerImages();
             //playerInfoSyncService.updatePlayersInfo();
-            standingsService.fetchAndSavePreviousSeasonsStandings();
+            //standingsService.fetchAndSavePreviousSeasonsStandings();
+            //espnPlayerService.syncPlayersWithEspnApi();
+
             log.info("Seeding dev data: Premier League teams sync completed.");
         } catch (Exception e) {
             log.error("Error during dev data seeding", e);

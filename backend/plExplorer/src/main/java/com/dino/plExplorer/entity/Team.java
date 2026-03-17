@@ -25,6 +25,9 @@ public class Team extends BaseEntity {
     @Column(name = "external_Id", nullable = false, unique = true)
     private Long externalId;
 
+    @Column(name = "espn_id", length = 20)
+    private String espnId;
+
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
