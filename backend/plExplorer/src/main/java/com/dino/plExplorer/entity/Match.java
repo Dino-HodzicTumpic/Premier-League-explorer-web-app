@@ -24,6 +24,9 @@ public class Match extends BaseEntity {
     @Column(name = "external_id", nullable = false, unique = true)
     private Long externalId;
 
+    @Column(name = "espn_id", length = 40, unique = true)
+    private String espnId;
+
     @Column(name = "utc_date", nullable = false)
     private LocalDateTime utcDate;
 
@@ -73,21 +76,27 @@ public class Match extends BaseEntity {
     @Column(name = "injury_time")
     private Integer injuryTime;
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Goal> goals = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MatchStatistic> statistics = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MatchAppearance> appearances = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Substitution> substitutions = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MatchReferee> referees = new ArrayList<>();
 

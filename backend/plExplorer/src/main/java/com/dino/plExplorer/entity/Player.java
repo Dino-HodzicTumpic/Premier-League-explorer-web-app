@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class Player extends BaseEntity implements HasImage {
 
 
-    @Column(name = "external_id", nullable = false, unique = true)
+    @Column(name = "external_id", unique = true)
     private Long externalId;
 
     @Column(name = "espn_id", length = 40)

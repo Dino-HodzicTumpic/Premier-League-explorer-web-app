@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="009-add-espn-id-to-match" author="dino">
+        <addColumn tableName="matches">
+            <column name="espn_id" type="VARCHAR(40)"/>
+        </addColumn>
+
+
+
+        <addUniqueConstraint tableName="matches"
+                             columnNames="espn_id"
+                             constraintName="uk_matches_espn_id"/>
+
+    </changeSet>
+</databaseChangeLog>
+

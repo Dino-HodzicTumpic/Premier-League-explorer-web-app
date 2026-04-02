@@ -1,8 +1,10 @@
 package com.dino.plExplorer.service;
 
+import tools.jackson.databind.JsonNode;
 import com.dino.plExplorer.dto.external.footballdata.initseed.PlayerExternalData;
 import com.dino.plExplorer.dto.external.footballdata.initseed.TeamExternalResponse;
 import com.dino.plExplorer.dto.external.footballdata.initseed.TeamsResponse;
+import com.dino.plExplorer.dto.external.footballdata.matches.MatchesResponse;
 import com.dino.plExplorer.dto.external.footballdata.standings.StandingsResponse;
 import com.dino.plExplorer.dto.external.footballdata.topScorers.TopScorersResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -121,6 +123,63 @@ public class FootballDataApiService {
             return Optional.empty();
         }
 
+    }
+
+    public Optional<MatchesResponse> getMatchesByGameWeek(int gameweek){
+        log.info("Fetching matches for gameweek {} from Football-data.org API", gameweek);
+        try{
+            MatchesResponse response = footballDataWebClient
+                    .get()
+                    .uri("/competitions/PL/matches?matchday=" + gameweek)
+                    .retrieve()
+                    .bodyToMono(MatchesResponse.class)
+                    .block();
+
+            return Optional.ofNullable(response);
+        } catch(Exception e){
+            log.error("Error while fetching matches for gameweek {} from Football-data.org API", gameweek, e);
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Integer> getCurrentGameWeekNumber(){
+        log.info("Fetching current gameweek number from Football-data.org API");
+        try{
+            JsonNode response = footballDataWebClient
+                    .get()
+                    .uri("/competitions/PL/matches?dateFrom=2025-08-15&dateTo=2025-08-15")
+                    .retrieve()
+                    .bodyToMono(JsonNode.class)
+                    .block();
+
+            if (response == null) {
+                log.warn("Received null response for live matches, cannot determine current gameweek");
+                return Optional.empty();
+            }
+
+            JsonNode matchesNode = response.path("matches");
+            if (!matchesNode.isArray() || matchesNode.isEmpty()) {
+                log.warn("Live matches array is missing or empty, cannot determine current gameweek");
+                return Optional.empty();
+            }
+
+            JsonNode currentMatchdayNode = matchesNode.get(0)
+                    .path("season")
+                    .path("currentMatchday");
+
+            if (!currentMatchdayNode.isInt()) {
+                log.warn("Missing or invalid season.currentMatchday in live matches response");
+                return Optional.empty();
+            }
+
+            int currentGameWeek = currentMatchdayNode.asInt();
+            log.info("Current gameweek number is: {}", currentGameWeek);
+            return Optional.of(currentGameWeek);
+
+        } catch(Exception e){
+            log.error("Error while fetching current gameweek number from Football-data.org API", e);
+            return Optional.empty();
+        }
     }
 
 

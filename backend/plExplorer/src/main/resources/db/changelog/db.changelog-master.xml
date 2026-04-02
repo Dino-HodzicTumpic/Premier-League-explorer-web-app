@@ -13,5 +13,8 @@
     <include file="/db/changelog/changes/006-add-espn-id-to-team.xml"/>
     <include file="/db/changelog/changes/007-change-team-espn-id-to-varchar20.xml"/>
     <include file="/db/changelog/changes/008-add-espn-id-to-player.xml"/>
+    <include file="/db/changelog/changes/009-add-espn-id-to-match.xml"/>
+    <include file="/db/changelog/changes/010-add-pass-stats-to-match-statistics.xml"/>
+    <include file="/db/changelog/changes/011-drop-not-null-player-external-id.xml"/>
 
 </databaseChangeLog>

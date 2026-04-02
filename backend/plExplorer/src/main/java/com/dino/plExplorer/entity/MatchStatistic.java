@@ -23,36 +23,42 @@ public class MatchStatistic extends BaseEntity {
     private Team team;
 
     @Column(name = "corner_kicks")
-    private Integer cornerKicks = 0;
+    private Integer cornerKicks = null;
 
     @Column(name = "goal_kicks")
-    private Integer goalKicks = 0;
-    private Integer offsides = 0;
-    private Integer fouls = 0;
+    private Integer goalKicks = null;
+    private Integer offsides = null;
+    private Integer fouls = null;
 
     @Column(name = "ball_possession")
-    private Integer ballPossession = 0;
+    private Integer ballPossession = null;
 
-    private Integer saves = 0;
+    @Column(name = "accurate_passes")
+    private Integer accuratePasses = null;
+
+    @Column(name = "total_passes")
+    private Integer totalPasses = null;
+
+    private Integer saves = null;
 
     @Column(name = "throw_ins")
-    private Integer throwIns = 0;
+    private Integer throwIns = null;
 
-    private Integer shots = 0;
+    private Integer shots = null;
     @Column(name = "shots_on_goal")
-    private Integer shotsOnGoal = 0;
+    private Integer shotsOnGoal = null;
 
     @Column(name = "shots_off_goal")
-    private Integer shotsOffGoal = 0;
+    private Integer shotsOffGoal = null;
 
     @Column(name = "yellow_cards")
-    private Integer yellowCards = 0;
+    private Integer yellowCards = null;
 
     @Column(name = "red_cards")
-    private Integer redCards = 0;
+    private Integer redCards = null;
 
     @Column(name = "total_bookings")
-    private Integer totalBookings = 0;
+    private Integer totalBookings = null;
 
 
 

@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<PlayerImageProjection> findAllByExternalIdIn(Collection<Long> externalIds);
     List<Player> findByNameInOrNameIn(List<String> fullNames, List<String> displayNames);
+    Optional<Player> findByEspnId(String espnId);
+    List<Player> findByEspnIdIn(Collection<String> espnIds);
 }
