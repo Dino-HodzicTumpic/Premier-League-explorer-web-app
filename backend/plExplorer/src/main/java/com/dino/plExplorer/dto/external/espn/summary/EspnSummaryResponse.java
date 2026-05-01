@@ -109,6 +109,10 @@ public class EspnSummaryResponse {
         private List<Participant> participants;
         private Team team;
         private Clock clock;
+        // added afterward
+        private Boolean redCard;
+        private Boolean ownGoal;
+        private Boolean penaltyKick;
     }
 
     @Data

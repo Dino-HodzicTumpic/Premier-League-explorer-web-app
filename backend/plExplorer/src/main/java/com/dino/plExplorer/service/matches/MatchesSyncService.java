@@ -15,6 +15,7 @@ import com.dino.plExplorer.repository.PlayerRepository;
 import com.dino.plExplorer.repository.SeasonRepository;
 import com.dino.plExplorer.repository.TeamRepository;
 import com.dino.plExplorer.service.espn.EspnApiService;
+import com.dino.plExplorer.service.seasons.SeasonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class MatchesSyncService {
 
     private final MatchesService matchesService;
     private final EspnApiService espnApiService;
+    private final SeasonService seasonService;
 
     private final MatchRepository matchRepository;
     private final TeamRepository teamRepository;
@@ -54,16 +56,15 @@ public class MatchesSyncService {
     // current season is default if seasonStartYearOpt is not provided
     public void syncMatchesForGameweek(int gameweek, Optional<Integer> seasonStartYearOpt) {
         log.info("Syncing matches and events for gameweek {}", gameweek);
-
-        List<MatchDto> matches = matchesService.getMatches(gameweek);
+        int seasonStartYear = seasonStartYearOpt.orElseGet(() -> seasonService.getCurrentSeason());
+        List<MatchDto> matches = matchesService.getMatchesFromFootballDataApi(gameweek, seasonStartYear );
         if (matches.isEmpty()) {
             log.info("No matches found for gameweek {}", gameweek);
             return;
         }
 
-        Season season = seasonStartYearOpt
-                .map(seasonRepository::findByStartYear)
-                .orElseGet(seasonRepository::findByIsCurrentTrue);
+        Season season = seasonRepository.findByStartYear(seasonStartYear)
+                .orElse(seasonRepository.findByIsCurrentTrue());
 
         List<Match> persistedMatches = upsertFootballDataMatches(matches, season);
         if (persistedMatches.isEmpty()) {

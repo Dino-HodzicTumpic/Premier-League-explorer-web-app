@@ -40,7 +40,10 @@ public class DevDataSeeder {
             //playerInfoSyncService.updatePlayersInfo();
             //standingsService.fetchAndSavePreviousSeasonsStandings();
             //espnPlayerService.syncPlayersWithEspnApi();
-            matchesSyncService.syncMatchesForGameweek(1, Optional.of(2025));
+            //matchesSyncService.syncMatchesForGameweek(1, Optional.of(2025));
+            for(int i = 2; i <=38; i++){
+                matchesSyncService.syncMatchesForGameweek(i, Optional.of(2025));
+            }
                 //espnApiService.fetchEventSummary("740903");
             log.info("Seeding dev data: Premier League teams sync completed.");
         } catch (Exception e) {

@@ -125,12 +125,16 @@ public class FootballDataApiService {
 
     }
 
-    public Optional<MatchesResponse> getMatchesByGameWeek(int gameweek){
-        log.info("Fetching matches for gameweek {} from Football-data.org API", gameweek);
+    public Optional<MatchesResponse> getMatchesByGameWeek(int gameweek, int season){
+        log.info("Fetching matches for gameweek {} season startYear {} from Football-data.org API", gameweek, season);
         try{
             MatchesResponse response = footballDataWebClient
                     .get()
-                    .uri("/competitions/PL/matches?matchday=" + gameweek)
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/competitions/PL/matches")
+                            .queryParam("matchday", gameweek)
+                            .queryParam("season", season)
+                            .build())
                     .retrieve()
                     .bodyToMono(MatchesResponse.class)
                     .block();

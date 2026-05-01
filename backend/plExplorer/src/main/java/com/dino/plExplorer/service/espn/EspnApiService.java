@@ -56,6 +56,22 @@ private final WebClient espnSiteWebClient;
 
     }
 
+    public Optional<EspnScoreboardResponse> fetchScoreboardForToday(){
+        try{
+            EspnScoreboardResponse response = espnSiteWebClient.get()
+                    .uri("/scoreboard")
+                    .retrieve()
+                    .bodyToMono(EspnScoreboardResponse.class)
+                    .block();
+
+            log.info("Scoreboard data: {}", response);
+            return Optional.ofNullable(response);
+        } catch (Exception e) {
+            log.error("Error fetching scoreboard from ESPN API: {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     public Optional<EspnSummaryResponse> fetchEventSummary(String eventId){
         try {
             EspnSummaryResponse response = espnSiteWebClient.get()

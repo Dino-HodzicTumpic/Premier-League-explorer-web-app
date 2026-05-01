@@ -22,6 +22,6 @@ public class EspnStatus {
         @JsonProperty("detail")
         private String detail; // minuta ili FT ako je završeno
                                 // npr FT ili "90'+10'"
-
+        private String state; // pre,in or post
     }
 }

@@ -12,5 +12,5 @@ public interface SeasonRepository extends JpaRepository<Season, Long> {
      Optional<Season> findByName(String name);
      Season findByIsCurrentTrue();
      @Query("Select s from Season s where YEAR(s.startDate) = :year")
-     Season findByStartYear(  @Param("year") Integer startYear);
+     Optional<Season> findByStartYear(  @Param("year") Integer startYear);
 }

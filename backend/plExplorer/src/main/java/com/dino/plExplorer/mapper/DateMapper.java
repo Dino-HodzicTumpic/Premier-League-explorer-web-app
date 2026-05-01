@@ -2,8 +2,7 @@ package com.dino.plExplorer.mapper;
 
 import org.mapstruct.Named;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
+import java.time.*;
 
 public class DateMapper {
 
@@ -15,5 +14,10 @@ public class DateMapper {
     @Named("yearMonthToUntilDate")
     public static LocalDate yearMonthToUntilDate(YearMonth until) {
         return until != null ? until.atEndOfMonth() : null;
+    }
+
+    @Named("toOffsetDateTime")
+    public  OffsetDateTime toOffsetDateTime(LocalDateTime utcDate) {
+        return utcDate.atOffset(ZoneOffset.UTC);
     }
 }
