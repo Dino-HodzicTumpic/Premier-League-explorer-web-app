@@ -131,6 +131,8 @@ public class EspnSummaryResponse {
         private  String espnId;
         @JsonProperty("abbreviation")
         private String tla;
+        @JsonProperty("displayName")
+        private String shortName;
     }
 
     @Data

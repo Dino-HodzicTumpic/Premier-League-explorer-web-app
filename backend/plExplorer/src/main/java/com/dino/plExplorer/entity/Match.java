@@ -76,6 +76,12 @@ public class Match extends BaseEntity {
     @Column(name = "injury_time")
     private Integer injuryTime;
 
+    @Column(name = "home_formation", length = 20)
+    private String homeFormation;
+
+    @Column(name = "away_formation", length = 20)
+    private String awayFormation;
+
     @Builder.Default
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Goal> goals = new ArrayList<>();

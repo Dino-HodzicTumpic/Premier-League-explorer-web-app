@@ -38,6 +38,7 @@ public interface LiveMatchDetailsSnapshotMapper {
         return LiveMatchDetailsSnapshotDto.TeamDetailsDto.builder()
                 .espnTeamId(team != null ? team.getEspnId() : null)
                 .tla(team != null ? team.getTla() : null)
+                .shortName(team != null ? team.getShortName() : null)
                 .homeAway(homeAway)
                 .formation(rosterData != null ? rosterData.getFormation() : null)
                 .statistics(toStatisticDtoList(teamStats != null ? teamStats.getStatistics() : null))

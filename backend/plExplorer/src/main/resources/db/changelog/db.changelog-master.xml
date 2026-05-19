@@ -16,5 +16,6 @@
     <include file="/db/changelog/changes/009-add-espn-id-to-match.xml"/>
     <include file="/db/changelog/changes/010-add-pass-stats-to-match-statistics.xml"/>
     <include file="/db/changelog/changes/011-drop-not-null-player-external-id.xml"/>
+    <include file="/db/changelog/changes/012-add-match-formations.xml"/>
 
 </databaseChangeLog>

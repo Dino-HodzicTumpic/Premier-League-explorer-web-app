@@ -24,17 +24,7 @@ public class MatchDto {
 
     private ScoreDto score;
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class TeamDto {
-        private Long id;
-        private String name;
-        private String shortName;
-        private String tla;
-        private String crestUrl;
-    }
+
 
     public enum MatchResult {
         HOME_TEAM, AWAY_TEAM, DRAW

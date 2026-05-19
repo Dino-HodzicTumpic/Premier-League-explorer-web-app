@@ -1,9 +1,11 @@
 package com.dino.plExplorer.mapper;
 
 import org.mapstruct.Named;
+import org.springframework.stereotype.Component;
 
 import java.time.*;
 
+@Component
 public class DateMapper {
 
     @Named("yearMonthToStartDate")

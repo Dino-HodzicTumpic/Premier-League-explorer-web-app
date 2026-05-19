@@ -1,4 +1,3 @@
-
 package com.dino.plExplorer.service.matches;
 
 import com.dino.plExplorer.dto.external.espn.scoreboard.EspnCompetition;
@@ -8,6 +7,7 @@ import com.dino.plExplorer.dto.external.espn.summary.EspnSummaryResponse;
 import com.dino.plExplorer.entity.Booking;
 import com.dino.plExplorer.entity.Goal;
 import com.dino.plExplorer.entity.Match;
+import com.dino.plExplorer.entity.MatchAppearance;
 import com.dino.plExplorer.entity.MatchStatistic;
 import com.dino.plExplorer.entity.Player;
 import com.dino.plExplorer.entity.Substitution;
@@ -99,9 +99,17 @@ public class EspnEventUpsertService {
 
         Optional<EspnSummaryResponse> summaryOpt = fetchMatchSummary(event.getEspnId());
 
+        applyFormations(managedMatch, summaryOpt.orElse(null), homeTeam, awayTeam);
+        matchRepository.save(managedMatch);
+
         List<MatchStatistic> statistics = mapMatchStatistics(managedMatch, summaryOpt.orElse(null), homeTeam, awayTeam, teamsByEspnId);
         if (!statistics.isEmpty()) {
             matchStatisticRepository.saveAll(statistics);
+        }
+
+        List<MatchAppearance> appearances = mapMatchAppearances(managedMatch, summaryOpt.orElse(null), teamsByEspnId, playersByEspnId);
+        if (!appearances.isEmpty()) {
+            matchAppearanceRepository.saveAll(appearances);
         }
 
         List<EspnDetail> details = competition.getDetails();
@@ -499,6 +507,117 @@ public class EspnEventUpsertService {
         }
         return null;
     }
+
+    private List<MatchAppearance> mapMatchAppearances(Match match,
+                                                      EspnSummaryResponse summary,
+                                                      Map<String, Team> teamsByEspnId,
+                                                      Map<String, Player> playersByEspnId) {
+        if (summary == null || summary.getRosters() == null || summary.getRosters().isEmpty()) {
+            return List.of();
+        }
+
+        List<MatchAppearance> result = new ArrayList<>();
+        for (EspnSummaryResponse.RosterData rosterData : summary.getRosters()) {
+            if (rosterData == null || rosterData.getTeam() == null || rosterData.getTeam().getEspnId() == null) {
+                continue;
+            }
+
+            Team team = teamsByEspnId.get(rosterData.getTeam().getEspnId());
+            if (team == null) {
+                continue;
+            }
+
+            List<EspnSummaryResponse.RosterMember> roster = Optional.ofNullable(rosterData.getRoster()).orElse(List.of());
+            for (EspnSummaryResponse.RosterMember member : roster) {
+                if (member == null || member.getAthlete() == null || member.getAthlete().getEspnId() == null) {
+                    continue;
+                }
+
+                Player player = resolveOrCreatePlayer(
+                        member.getAthlete().getEspnId(),
+                        member.getAthlete().getFullName(),
+                        team,
+                        playersByEspnId);
+                if (player == null) {
+                    continue;
+                }
+
+                result.add(MatchAppearance.builder()
+                        .match(match)
+                        .team(team)
+                        .player(player)
+                        .shirtNumber(parseJerseyNumber(member.getJersey()))
+                        .position(resolvePositionName(member.getPosition()))
+                        .isStarting(Boolean.TRUE.equals(member.getIsStarter()))
+                        .build());
+            }
+        }
+
+        return result;
+    }
+
+    private Integer parseJerseyNumber(String jersey) {
+        if (jersey == null || jersey.isBlank()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(jersey.trim());
+        } catch (NumberFormatException ignored) {
+            return 0;
+        }
+    }
+
+    private String resolvePositionName(EspnSummaryResponse.Position position) {
+        if (position == null || position.getName() == null || position.getName().isBlank()) {
+            return "Unknown";
+        }
+        return position.getName();
+    }
+
+    private void applyFormations(Match match,
+                                 EspnSummaryResponse summary,
+                                 Team homeTeam,
+                                 Team awayTeam) {
+        if (match == null || summary == null || summary.getRosters() == null || summary.getRosters().isEmpty()) {
+            return;
+        }
+
+        String homeFormation = null;
+        String awayFormation = null;
+
+        for (EspnSummaryResponse.RosterData rosterData : summary.getRosters()) {
+            if (rosterData == null || rosterData.getFormation() == null || rosterData.getFormation().isBlank()) {
+                continue;
+            }
+
+            String homeAway = rosterData.getHomeAway();
+            if (homeAway != null) {
+                if ("home".equalsIgnoreCase(homeAway)) {
+                    homeFormation = rosterData.getFormation();
+                } else if ("away".equalsIgnoreCase(homeAway)) {
+                    awayFormation = rosterData.getFormation();
+                }
+            }
+
+            if (rosterData.getTeam() != null && rosterData.getTeam().getEspnId() != null) {
+                String rosterTeamId = rosterData.getTeam().getEspnId();
+                if (homeTeam != null && rosterTeamId.equals(homeTeam.getEspnId())) {
+                    homeFormation = rosterData.getFormation();
+                } else if (awayTeam != null && rosterTeamId.equals(awayTeam.getEspnId())) {
+                    awayFormation = rosterData.getFormation();
+                }
+            }
+        }
+
+        if (homeFormation != null) {
+            match.setHomeFormation(homeFormation);
+        }
+        if (awayFormation != null) {
+            match.setAwayFormation(awayFormation);
+        }
+    }
 }
+
+
 
 

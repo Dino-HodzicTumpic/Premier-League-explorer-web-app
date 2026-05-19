@@ -18,6 +18,7 @@ public class LiveMatchDetailsSnapshotDto {
     private Integer injuryTime;
     private String status;
 
+
     private TeamDetailsDto homeTeam;
     private TeamDetailsDto awayTeam;
     private List<DetailDto> details;
@@ -29,6 +30,8 @@ public class LiveMatchDetailsSnapshotDto {
     public static class TeamDetailsDto {
         private String espnTeamId;
         private String tla;
+        private String shortName;
+        private String crestUrl;
         private String homeAway;
         private String formation;
         private List<StatisticDto> statistics;
@@ -79,6 +82,7 @@ public class LiveMatchDetailsSnapshotDto {
     public static class DetailTeamDto {
         private String espnTeamId;
         private String tla;
+        private String shortName;
     }
 
     @Data

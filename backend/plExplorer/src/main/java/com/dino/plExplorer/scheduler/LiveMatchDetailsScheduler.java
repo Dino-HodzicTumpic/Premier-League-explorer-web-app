@@ -3,6 +3,7 @@ package com.dino.plExplorer.scheduler;
 
 import com.dino.plExplorer.dto.external.espn.summary.EspnSummaryResponse;
 import com.dino.plExplorer.dto.response.matches.LiveMatchDetailsSnapshotDto;
+import com.dino.plExplorer.dto.response.matches.LiveMatchSnapshotDto;
 import com.dino.plExplorer.mapper.matches.LiveMatchDetailsSnapshotMapper;
 import com.dino.plExplorer.service.espn.EspnApiService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,11 @@ public class LiveMatchDetailsScheduler {
     private final EspnApiService espnApiService;
     private final LiveMatchDetailsSnapshotMapper liveMatchDetailsSnapshotMapper;
 
-    @Scheduled(fixedDelay =60000 )
+
+    @Scheduled(fixedDelay =60000, initialDelay = 30000)
     public void refreshLiveMatchesDetails(){
 
-        CaffeineCache basicCache = (CaffeineCache) cacheManager.getCache("liveMatchDetailsCache");
+        CaffeineCache basicCache = (CaffeineCache) cacheManager.getCache("liveMatchListCache");
 
         if(basicCache==null){
             log.warn("Live match list cache not found");
@@ -51,6 +53,12 @@ public class LiveMatchDetailsScheduler {
             }
 
             LiveMatchDetailsSnapshotDto snapshot = liveMatchDetailsSnapshotMapper.toSnapshot(summary.get(), matchId);
+
+            //dopuni jos podatke koji fale iz summarya
+            snapshot.setMinute(basicCache.get(matchId, LiveMatchSnapshotDto.class).getMinute());
+            snapshot.setStatus("LIVE");
+            snapshot.setInjuryTime(basicCache.get(matchId, LiveMatchSnapshotDto.class).getInjuryTime());
+
 
             detailsCache.put(matchId, snapshot);
         });

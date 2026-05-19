@@ -6,6 +6,7 @@ import backgroundImage from "@/assets/images/stadium.webp";
 import topScorerImage from "@/assets/images/haaland-celebration.webp";
 import ScorersPage from "@/pages/ScorersPage";
 import { SkeletonScorers } from "@/features/topScorers/components/SkeletonScorers";
+import MatchesPage from "@/pages/MatchesPage";
 
 // Routes that show the stadium background
 const STADIUM_ROUTES = ["/", "/top-scorers"];
@@ -40,6 +41,7 @@ export default function AppLayout() {
             <Route path="/standings" element={<StandingsPage />} />
             <Route path="/test" element={<SkeletonScorers rows={20} />} />
             <Route path="/top-scorers" element={<ScorersPage />} />
+            <Route path="/matches" element={<MatchesPage />} />
           </Routes>
         </main>
       </div>

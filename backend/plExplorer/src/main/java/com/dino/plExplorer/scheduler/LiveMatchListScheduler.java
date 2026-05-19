@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,6 +64,7 @@ public class LiveMatchListScheduler {
                     .injuryTime(resolveInjuryTime(event).orElse(null))
                     .homeScore(resolveHomeScore(event))
                     .awayScore(resolveAwayScore(event))
+                    .status(LiveMatchSnapshotDto.CachedMatchStatus.LIVE)
                     .build();
 
             cache.put(event.getEspnId(), snapshot);
@@ -72,12 +75,12 @@ public class LiveMatchListScheduler {
             LiveMatchSnapshotDto cached = cache.get(event.getEspnId(), LiveMatchSnapshotDto.class);
 
             if (cached != null){
+                cached.setStatus(LiveMatchSnapshotDto.CachedMatchStatus.ENDED_PENDING_PERSIST);
+                cache.put(event.getEspnId(), cached);
                 // call method that will save them in db and remove them from cache
                 matchFinalizationService.finalizeMatch(event.getEspnId());
             }
         });
-
-
 
     }
 
@@ -129,6 +132,5 @@ public class LiveMatchListScheduler {
 
 
 
+
 }
-
-

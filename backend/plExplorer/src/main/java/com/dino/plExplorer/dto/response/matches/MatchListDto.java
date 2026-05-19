@@ -19,6 +19,6 @@ public class MatchListDto {
     private OffsetDateTime kickoffTime;
     private Integer homeScore;
     private Integer awayScore;
-    private MatchDto.TeamDto homeTeam;
-    private MatchDto.TeamDto awayTeam;
+    private TeamDto homeTeam;
+    private TeamDto awayTeam;
 }
