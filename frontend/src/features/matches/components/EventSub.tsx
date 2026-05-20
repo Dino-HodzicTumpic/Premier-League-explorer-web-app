@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowRightLeft } from "lucide-react";
 import type { EventPlayer, Team } from "../types/matches";
-import { getShortPlayerName } from "@/utils.ts/getPlayerSurname";
+import { getShortPlayerName } from "@/utils/getPlayerSurname";
 import { cn } from "@/lib/utils";
 
 type EventSubProps = {

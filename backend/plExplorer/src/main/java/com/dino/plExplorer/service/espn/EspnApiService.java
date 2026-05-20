@@ -2,6 +2,7 @@ package com.dino.plExplorer.service.espn;
 
 import com.dino.plExplorer.config.EspnSiteConfig;
 import com.dino.plExplorer.dto.external.espn.EspnPlayersResponseDto;
+import com.dino.plExplorer.dto.external.espn.news.EspnNewsDto;
 import com.dino.plExplorer.dto.external.espn.scoreboard.EspnScoreboardResponse;
 import com.dino.plExplorer.dto.external.espn.summary.EspnSummaryResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -89,6 +90,20 @@ private final WebClient espnSiteWebClient;
             return Optional.empty();
         }
 
+    }
+
+    public Optional<EspnNewsDto> fetchLatestNews(){
+        try {
+            EspnNewsDto response = espnSiteWebClient.get()
+                    .uri("/news")
+                    .retrieve()
+                    .bodyToMono(EspnNewsDto.class)
+                    .block();
+            return Optional.ofNullable(response);
+        } catch (Exception e) {
+            log.error("Error fetching latest news from ESPN API");
+            return Optional.empty();
+        }
     }
 
 

@@ -4,10 +4,7 @@ import { FaFutbol } from "react-icons/fa";
 import { GiGoalKeeper } from "react-icons/gi";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { cn } from "@/lib/utils";
-import {
-  getPlayerSurname,
-  getShortPlayerName,
-} from "@/utils.ts/getPlayerSurname";
+import { getPlayerSurname, getShortPlayerName } from "@/utils/getPlayerSurname";
 
 type EventGoalProps = {
   type: string;

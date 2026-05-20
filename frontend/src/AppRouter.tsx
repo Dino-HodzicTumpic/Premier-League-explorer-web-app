@@ -10,6 +10,9 @@ import WaveOverlay from "./layouts/WaveOverlay";
 import WaveOverlayGreen2 from "./layouts/WaveOverlayGreen2";
 import MatchDetailsPage from "./pages/MatchDetailsPage";
 import GrayOverlay from "./layouts/GrayOverlay";
+import NewsLayout from "./layouts/NewsLayout";
+import NewsDetailsPage from "./pages/NewsDetailsPage";
+import NewsPage from "./pages/NewsPage";
 
 export default function AppRouter() {
   return (
@@ -31,6 +34,11 @@ export default function AppRouter() {
             path="/matches/:espnMatchId/details"
             element={<MatchDetailsPage />}
           />
+        </Route>
+
+        <Route element={<NewsLayout />}>
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:id" element={<NewsDetailsPage />} />
         </Route>
       </Route>
     </Routes>

@@ -1,7 +1,7 @@
 import React from "react";
 import type { MatchResult, MatchStatus, Team } from "../types/matches";
 import { cn } from "@/lib/utils";
-import { formatKickoff } from "@/utils.ts/formatKickoff";
+import { formatKickoff } from "@/utils/formatKickoff";
 import { useNavigate } from "react-router-dom";
 
 type MatchCardProps = {

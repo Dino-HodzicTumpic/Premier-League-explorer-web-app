@@ -1,6 +1,6 @@
 import React from "react";
 import { VscJersey } from "react-icons/vsc";
-import { getShortPlayerName } from "@/utils.ts/getPlayerSurname";
+import { getShortPlayerName } from "@/utils/getPlayerSurname";
 
 const POSITION_MAP = {
   Goalkeeper: { bottom: "0%", left: "50%" },

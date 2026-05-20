@@ -2,7 +2,7 @@ import React from "react";
 import type { EventPlayer, Team } from "../types/matches";
 import { FaRegCircle } from "react-icons/fa";
 import { cn } from "@/lib/utils";
-import { getShortPlayerName } from "@/utils.ts/getPlayerSurname";
+import { getShortPlayerName } from "@/utils/getPlayerSurname";
 
 type EventBookingProps = {
   team: Team;
