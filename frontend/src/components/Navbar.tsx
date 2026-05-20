@@ -49,6 +49,7 @@ const NAV_LINKS = [
   { label: "Matches", href: "/matches", icon: CalendarDays },
   { label: "Top scorers", href: "/top-scorers", icon: Star },
   { label: "Standings", href: "/standings", icon: List },
+  { label: "News", href: "/news", icon: Columns },
 ] as const;
 
 // Mock user state — replace with actual auth logic
