@@ -65,28 +65,53 @@ The backend is built using an **N-Tier Layered Architecture** (Controller-Servic
 
 ## ⚙️ Core Technical Highlights (Backend Implementation)
 
-### ⚡ Dual-Stage Cache Polling & Schedulers
-To bypass strict free-tier consumption limits and preserve low UI response times, the backend decouples live matching updates into a dual-stage scheduler model managed through **Caffeine Cache**:
-* **`LiveMatchListScheduler` (Every 20 seconds):** Polls the primary daily scoreboards. It actively partitions active games into a high-frequency cache layer (`liveMatchListCache`) streaming localized telemetry (minutes, injury time, real-time scores) as lightweight `LiveMatchSnapshotDto` entities.
-* **`LiveMatchDetailsScheduler` (Every 60 seconds):** Dynamically looks up keys within the live cache, querying deep match summary details (events, formations, stats) only for ongoing fixtures and writing them into a dedicated details cache.
+### ⚡ Dual-Stage Cache & Scheduler System
+To reduce external API usage and improve response times, live match processing is split into a two-layer scheduler system using Caffeine Cache:
 
-### 🔄 Asynchronous Game Finalization & Idempotent Upserts
-* When the live tracker scheduler captures an incoming state transition change from *LIVE* to *ENDED*, it flags the record as `ENDED_PENDING_PERSIST` and routes it to `MatchFinalizationService`.
-* To handle unreliable external identifiers, the system implements an **Idempotent Upsert Strategy** inside `EspnEventUpsertService`. Before parsing incoming statistics, it drops transactional event tables associated with the targeted Match ID (`goalRepository.deleteByMatch(managedMatch)`, etc.) and re-hydrates the schema completely fresh, eliminating any probability of duplicate data.
+* **LiveMatchListScheduler (every 20s):**
+  Fetches the daily scoreboard and identifies live matches.
+  Stores lightweight `LiveMatchSnapshotDto` objects in a fast-access cache (`liveMatchListCache`) containing real-time match state (score, minute, injury time).
 
-### 🛡️ Defensive Player Creation Pipeline
-* Real-time feeds occasionally submit un-indexed players during match events (e.g., academy players making debuts). The ingestion logic uses an entity warm-up algorithm that dynamically checks local records via missing ID sets and builds newly validated `Player` profiles on the fly without breaking the active transactional process.
+* **LiveMatchDetailsScheduler (every 60s):**
+  Reads active match IDs from the live cache and fetches detailed match summaries (events, lineups, statistics).
+  Stores enriched match data in a separate cache layer.
 
-### 📦 Database Migration Versioning
-* Relies on **Liquibase** instead of fragile native Hibernate auto-generation options (`ddl-auto: update`). This enforces strict, source-controlled database changes, ensuring clear incremental safety constraints when publishing schema updates across isolated team dependencies.
+---
+
+### 🔄 Match Finalization & Idempotent Data Sync
+* When a match transitions from **LIVE → ENDED**, it is marked as `ENDED_PENDING_PERSIST` and passed to `MatchFinalizationService`.
+* The system uses an **idempotent upsert approach** in `EspnEventUpsertService`:
+  - Existing match-related data (goals, bookings, substitutions, stats) is cleared
+  - Fresh data is reconstructed from the latest ESPN summary
+  - This ensures consistency even when external data is re-fetched multiple times
+
+---
+
+### 🛡️ Dynamic Player Ingestion
+* Incoming match data may include previously unseen players (e.g., debutants or academy players).
+* The system automatically detects missing player records and creates them on the fly during ingestion, ensuring data consistency without interrupting processing.
+
+---
+
+### 📦 Database Versioning
+* Uses **Liquibase** for controlled database migrations instead of Hibernate auto-DDL.
+* Ensures safe, versioned schema evolution across environments.
 
 ---
 
 ## 🛣️ Project Roadmap
 
-* [ ] **Stateless Authentication:** Integrate Spring Security coupled with JSON Web Token (JWT) tracking and Google OAuth2 providers.
-* [ ] **Deployment Framework:** Standardize localized infrastructure into containerized configurations utilizing multi-stage Docker builds.
-* [ ] **Unified Search Mechanism:** Introduce optimized composite database query layers to seamlessly discover players, managers, and clubs from a centralized toolbar.
+* [ ] **Authentication System:**
+  Implement secure authentication using Spring Security with JWT-based stateless sessions and Google OAuth2 login support.
+
+* [ ] **Deployment & Infrastructure:**
+  Containerize the application using Docker with multi-stage builds and prepare a production-ready deployment setup.
+
+* [ ] **Unified Search:**
+  Introduce a global search feature for players, teams, and managers using optimized backend query logic.
+
+* [ ] **User Personalization Features:**
+  Allow users to follow specific teams and players to receive personalized updates and improve content relevance.
 
 ---
 
