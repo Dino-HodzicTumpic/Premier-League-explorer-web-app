@@ -45,7 +45,7 @@ The backend is built using an **N-Tier Layered Architecture** (Controller-Servic
 | :--- | :--- | :--- |
 | ![Standings](screenshots/Standings.png) | ![Top Scorers](screenshots/TopScorers.png) | ![News Feed](screenshots/News.png) |
 
-<details>
+<details open>
   <summary>📸 Click to view detailed Match Center layouts (Lineups, Stats, Timelines)</summary>
   
   #### Match list and GameWeek selector
